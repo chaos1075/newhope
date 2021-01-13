@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Events
+{% endblock %}
+
+{% block main %}
+    <!--<div class="dropdown">-->
+    <!--    <button class="btn btn-info dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+    <!--        Create / Update an event-->
+    <!--    </button>-->
+    <!--    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+    <!--        <a class="dropdown-item" href="#">Create</a>-->
+    <!--        <a class="dropdown-item" href="#">Update</a>-->
+    <!--    </div>-->
+    <!--</div>-->
+    <form action="/events" method="post">
+        <h4>List of all ongoing events:</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Detail</th>
+                    <th>From</th>
+                    <th>Starting Date</th>
+                    <th>Ending Date</th>
+                </tr>
+            </thead>
+            <!--<tfoot>-->
+            <!--    <tr>-->
+            <!--        <td colspan="4"></td>-->
+            <!--        <td class="font-weight-bold">{{ totalValue }}</td>-->
+            <!--    </tr>-->
+            <!--</tfoot>-->
+            <tbody>
+                {% for ea in events %}
+                    <tr>
+                        <td>{{ ea['subject'] }}</td>
+                        <td>{{ ea['message'] }}</td>
+                        <td>{{ ea['sender'] }}</td>
+                        <td>{{ ea['start'] }}</td>
+                        <td>{{ ea['end'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h4>Join an event:</h4>
+        <p>Please choose an event you would like to join from the list below.</p>
+            <!--<div id="join", style="display: none;">-->
+        <div class="form-group">
+            <label>Choose an Event</label>
+            <select class="form-control" id="event" name="event" required>
+                <option disabled selected>Choose...</option>
+                {% for event in events %}
+                    <option value={{ event['subject'] }}>{{ event['subject'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="align-right">
+            <button class="btn btn-success" type="submit">Join the event</button>
+        </div>
+    </form>
+    <form action="/createEvent" method="post">
+        <h4>Create an event:</h4>
+        <p>You may create an event here and the notification will be sent to all the members.</p>
+        <div class="form-group">
+            <label class="required">From:</label>
+            <input class="form-control" name="sender" placeholder="Sender" type="text" required>
+        </div>
+        <div class="form-group">
+            <label class="required">Subject:</label>
+            <input class="form-control" name="subject" placeholder="Subject" type="text" required>
+        </div>
+        <div class="form-group">
+            <label class="required">Details:</label>
+            <input class="form-control" name="message" placeholder="Message" type="text" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="required">Starting Date (MM-DD-YYYY)</label>
+                <input class="form-control" name="start" type="date" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="required">End Date (MM-DD-YYYY)</label>
+                <input class="form-control" name="end" type="date" required>
+            </div>
+        </div>
+        <div class="align-right">
+            <button class="btn btn-success" type="submit">Create the event</button>
+        </div>
+    </form>
+{% endblock %}

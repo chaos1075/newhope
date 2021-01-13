@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Dashboard
+{% endblock %}
+
+{% block main %}
+    <form action="/" method="post">
+        <h3>Welcome, {{ user }}!</h3>
+        <p>This is your personal dashboard.</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md">
+                    <h4>My Groups</h4>
+                    <p></p>
+                    <ul class="list-group">
+                        {% if not myGroups %}
+                            <div class="alert alert-secondary" role="alert">
+                                Sorry, you haven't joined any group yet.
+                            </div>
+                        {% else %}
+                            {% for group in post_group %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ group['group_name'] }}
+                                <span class="badge badge-success badge-pill">{{ group['COUNT(posts.content)'] }}</span>
+                            </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md">
+                    <h4>My Events</h4>
+                    <p></p>
+                    <ul class="list-group">
+                        {% if not myEvents %}
+                            <div class="alert alert-secondary" role="alert">
+                                Sorry, you haven't join any event yet.
+                            </div>
+                        {% else %}
+                            {% for event in myEvents %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ event['subject'] }}
+                                <span class="badge badge-success badge-pill">{{ event['start'] }} to {{ event['end'] }}</span>
+                            </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <p></p>
+            <div class="row">
+                <div class="col-md">
+                    <h4>My Family Givings (YTD)</h4>
+                    <p></p>
+                    <ul class="list-group">
+                        {% if not familyGivings %}
+                            <div class="alert alert-secondary" role="alert">
+                                Sorry, you haven't donated this year yet.
+                            </div>
+                        {% else %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ user }} 's family
+                                <span class="badge badge-success badge-pill">{{ familyGivings }}</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p></p>
+        <div class="col-md">
+            <h4>My Group Posts:</h4>
+            <p></p>
+            <ul class="list-group">
+                {% if not posts %}
+                    <div class="alert alert-secondary" role="alert">
+                        Sorry, there is no post yet.
+                    </div>
+                {% else %}
+                    {% for p in posts %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="message">
+                            <div style="float:left;font-weight:bold;color:#009;margin-bottom: 5px;">{{ p['sender'] }}<span style="font-style:italic;font-size:13px;color:grey;font-weight: normal;">  To Group {{ p['group_name'] }}</span> <span style="font-style:italic;font-size:13px;color:grey;font-weight: normal;">  sent on {{ p['datetime'] }}</span> </div>
+                            <!--<div class="time">   sent on {{ p['datetime'] }}</div>-->
+                            <div style="clear:both;"></div>
+                            <div class="content">{{ p['content'] }}</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <p></p>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <!--<label>Choose a Group</label>-->
+                <select class="form-control" id="group" name="group" required>
+                    <option disabled selected>Choose...</option>
+                    {% for group in myGroups %}
+                        <option value={{ group['group_name'] }}>{{ group['group_name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <!--<label class="required">From:</label>-->
+                <input class="form-control" name="sender" placeholder="From" type="text" required>
+            </div>
+        </div>
+            <div class="form-group">
+            <!--<label class="required">Message:</label>-->
+            <input class="form-control vw-50 vh-100" name="message" placeholder="Message" type="text" required>
+        </div>
+        <div class="align-right">
+            <button class="btn btn-success" type="submit">Post</button>
+        </div>
+    </form>
+{% endblock %}

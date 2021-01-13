@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Online Giving
+{% endblock %}
+
+{% block main %}
+    <h1>Thank you for giving!</h1>
+    <p>Scripture teaches us: Whoever sows sparingly will also reap sparingly, and whoever sows bountifully will also reap bountifully. Each one must give as he has decided in his heart, not reluctantly or under compulsion, for God loves a cheerful giver."  - 2 Cor. 9:6-7
+    </p>
+    <form action="/giving" method="post">
+        <div class="form-group">
+            <label class="required">Donate Amount</label>
+            <input class="form-control" autofocus name="amount" type="number" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="required">Card Holder Name</label>
+                <input type="text" class="form-control" name="inputName" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="required">Card Number</label>
+                <input type="number" class="form-control" name="inputNum" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="required">Expiration Month (MM)</label>
+                <input type="number" class="form-control" name="inputMonth" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="required">Year (YYYY)</label>
+                <input type="number" class="form-control" name="inputYear" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="required">CVV</label>
+                <input type="number" class="form-control" name="inputCVV" required>
+            </div>
+        </div>
+        <p></p>
+        <p></p>
+        <div class="align-right">
+            <button class="btn btn-success" type="submit">Donate</button>
+        </div>
+    </form>
+{% endblock %}

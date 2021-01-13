@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Groups
+{% endblock %}
+
+{% block main %}
+    <form action="/group" method="post">
+        <h4>List of all groups:</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Group Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in groups %}
+                    <tr>
+                        <td>{{ group['group_name'] }}</td>
+                        <td>{{ group['description'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p></p>
+        <h4>Join a group:</h4>
+        <p>You may join a group here. Please choose one group you would like to join from the list of all the existing groups.</p>
+            <!--<div id="join", style="display: none;">-->
+            <div class="form-group">
+                <label>Choose a Group</label>
+                <select class="form-control" id="group" name="group" required>
+                    <option disabled selected>Choose...</option>
+                    {% for group in groups %}
+                        <option value={{ group['group_name'] }}>{{ group['group_name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-success" type="submit">Join the group</button>
+            </div>
+
+            <!--</div>-->
+    </form>
+    <p></p>
+    <p></p>
+    <!--<button class="btn btn-info" onclick="unhideform('create')">Create a new Group</button>-->
+    <h4>Create a new group:</h4>
+    <p>You may create your group here. You'll need to provide the group name and the description of the group purpose.</p>
+    <form action="/createGroup" method="post">
+        <!--<div id="create", style="display: none;">-->
+        <div class="form-group">
+            <label class="required">What is the Group's Name?</label>
+                <input class="form-control" autofocus name="groupname" id="groupname" placeholder="Group Name" type="text" required>
+        </div>
+        <div class="form-group">
+            <label class="required">Description about the group</label>
+            <input class="form-control" name="description"  id="description" placeholder="description" type="text" required>
+        </div>
+        <div class="align-right">
+            <button class="btn btn-success" type="submit">Create the group</button>
+        </div>
+        <!--</div>-->
+    </form>
+    <script>
+    //     function unhideform(id) {
+    //         let x = document.getElementById(id);
+    //         if (x.style.display === "none") {
+    //             x.style.display = "block";
+    //         }
+    //     }
+    </script>
+{% endblock %}
