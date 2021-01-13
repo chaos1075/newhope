@@ -4,7 +4,16 @@ Project: CS50 Final Project
 Track: Web
 Title: New Hope Church member website
 
-Features:
+Description:
+    This member website of New Hope Church provides the following main features: 
+    - member database with family info included
+    - personal account for each member
+    - setup/join groups and posting within group
+    - create/join events
+    - online giving
+    - personal summary page (joined groups with notification of unread posts, joined ongoing events, family YTD givings)
+
+Details:
 
     1. register:
         register an account by providing username, password, some personal and family information.
